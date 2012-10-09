@@ -43,7 +43,7 @@ Helpers
 
 **Present**
 
-* #self.presentation defines a named presentation and set of filters to run when that presentation is called. A lot of the other helper classes are filters that can be optionally included in a presentation.
+* `#self.presentation` defines a named presentation and set of filters to run when that presentation is called. A lot of the other helper classes are filters that can be optionally included in a presentation.
 
   `  presentation :full, :linkify, :embedify
   `
@@ -54,17 +54,17 @@ Helpers
 
 **Emeddable**
 
-* #self.expose\_embedded which will expose an attribute as an embedded object for hal:
+* `#self.expose_embedded` which will expose an attribute as an embedded object for hal:
 
    `   expose_embedded :user, UserPresenter
    `
   will make it so when the item is presented, it has the option of embedding user.
 
-* #embedify will actually include the user in the output object of #present
+* `#embedify` will actually include the user in the output object of #present
 
 **Rels**
 
-* #self.rel lets you define a rel to include when calling #linkify. This method takes an opts array that can define :only => [] or :except => [] to exclude it or include it on certain presentations (:only => :full, :except => :special\_case)
+* `#self.rel` lets you define a rel to include when calling #linkify. This method takes an opts array that can define :only => [] or :except => [] to exclude it or include it on certain presentations (:only => :full, :except => :special\_case)
 
   `   rel "dtime:item" do
      "/items/#{model.item_id}"
@@ -72,7 +72,7 @@ Helpers
   `
   Defines a rel that takes the model's item\_id and build a url for it
 
-* #linkify - takes the rels defined and puts them in items, taking into account the :onlys and the :excepts.
+* `#linkify` - takes the rels defined and puts them in items, taking into account the :onlys and the :excepts.
 
   `  {
     _links: {
