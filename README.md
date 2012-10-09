@@ -1,6 +1,7 @@
 # HalPresenters
 
-TODO: Write a gem description
+Extracted from dtime.com codebase, still needs a lot of cleaning up.
+
 
 ## Installation
 
@@ -20,8 +21,8 @@ Or install it yourself as:
 
 
 **Presenter Objects:**
-* Presenters respond to #present which takes a presentation_type argument :full vs :embedded
-* Presenters mix in HalPresenters::Helpers::Hypermedia, which in turn mixes in a bunch of helpers. These define some DSL methods that can be used, such as #self.exposes, #self.expose_embedded, and #self.rel.
+* Presenters respond to #present which takes a presentation\_type argument :full vs :embedded
+* Presenters mix in HalPresenters::Helpers::Hypermedia, which in turn mixes in a bunch of helpers. These define some DSL methods that can be used, such as #self.exposes, #self.expose\_embedded, and #self.rel.
 * Most of the helpers "expose" an attribute to the world in some way. To see an attribute defined on a model, it has to be "exposed".
 * Most of the helpers run as filters called by the #present method, allowing them to be disabled if necessary.
 
@@ -32,7 +33,7 @@ Or install it yourself as:
 1. ThingyPresenter.new(model or hashie::mash)
 2. Presenter#present(:full)
   => Presenter#full  (returns hash-like obj)  (called by PresentationHelpers::Present#present)
-3. run through default_filters, each takes in the object and returns a modified version (called by PresentationHelpers::Present)
+3. run through default\_filters, each takes in the object and returns a modified version (called by PresentationHelpers::Present)
 4. run through presentation specific filters, each takes in the object and returns a modified version (called by PresentationHelpers::Present)
 5. run default_after_filters, each takes in the object and returns a modified version (called by PresentationHelpers::Present)
 6. Hash-like object ready for JSON rendering (returned by HalPresenters::Helpers::Present#present)
@@ -53,7 +54,7 @@ Helpers
 
 **Emeddable**
 
-* #self.expose_embedded which will expose an attribute as an embedded object for hal:
+* #self.expose\_embedded which will expose an attribute as an embedded object for hal:
 
    `   expose_embedded :user, UserPresenter
    `
@@ -63,13 +64,13 @@ Helpers
 
 **Rels**
 
-* #self.rel lets you define a rel to include when calling #linkify. This method takes an opts array that can define :only => [] or :except => [] to exclude it or include it on certain presentations (:only => :full, :except => :special_case)
+* #self.rel lets you define a rel to include when calling #linkify. This method takes an opts array that can define :only => [] or :except => [] to exclude it or include it on certain presentations (:only => :full, :except => :special\_case)
 
   `   rel "dtime:item" do
      "/items/#{model.item_id}"
    end
   `
-  Defines a rel that takes the model's item_id and build a url for it
+  Defines a rel that takes the model's item\_id and build a url for it
 
 * #linkify - takes the rels defined and puts them in items, taking into account the :onlys and the :excepts.
 

@@ -2,8 +2,8 @@ module HalPresenters
   module Helpers
     module Rootify
       def self.included(klass)
-        klass.include(InstanceMethods)
-        klass.class_eval do
+        klass.instance_eval do
+          include(InstanceMethods)
           default_after_filter :absolutify
           default_after_filter :rootify
         end

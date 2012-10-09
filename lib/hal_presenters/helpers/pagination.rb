@@ -3,8 +3,8 @@ module HalPresenters
     module Pagination
       def self.included(klass)
         klass.extend(ClassMethods)
-        klass.include(InstanceMethods)
-        klass.class_eval do
+        klass.instance_eval do
+          include(InstanceMethods)
           rel "self" do
             "#{options[:self]}#{current_page}"
           end

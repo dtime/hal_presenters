@@ -3,7 +3,9 @@ module HalPresenters
     module Rels
       def self.included(klass)
         klass.extend(ClassMethods)
-        klass.include(InstanceMethods)
+        klass.instance_eval do
+          include(InstanceMethods)
+        end
       end
       module ClassMethods
         # Define a rel and the href that goes with it

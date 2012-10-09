@@ -14,5 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "hal_presenters"
   gem.require_paths = ["lib"]
   gem.add_dependency('addressable', '>= 2.3.2')
+  gem.add_development_dependency('rspec')
   gem.version       = HalPresenters::VERSION
 end

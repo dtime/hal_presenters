@@ -3,7 +3,9 @@ module HalPresenters
     module Present
       def self.included(klass)
         klass.extend(ClassMethods)
-        klass.include(InstanceMethods)
+        klass.instance_eval do
+          include(InstanceMethods)
+        end
       end
       module ClassMethods
         def presentation(name, *filters)

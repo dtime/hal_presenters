@@ -3,7 +3,9 @@ module HalPresenters
     module Exposable
       def self.included(klass)
         klass.extend(ClassMethods)
-        klass.include(InstanceMethods)
+        klass.instance_eval do
+          include(InstanceMethods)
+        end
       end
       module ClassMethods
         # Helper for extracting opts and a description from
@@ -13,7 +15,7 @@ module HalPresenters
           opts = {} unless opts.is_a?(Hash)
           defaults[:description] = args.first if args.first.is_a?(String)
           opts = defaults.merge(opts)
-          opts = PresentationHelpers.normalize_options(opts)
+          opts = HalPresenters.normalize_options(opts)
           opts
         end
 
@@ -34,7 +36,7 @@ module HalPresenters
           case filter_type
           when :presentation
             all_exposed.reject{|key, opts|
-              PresentationHelpers.exclude_presentation?(opts, type)
+              HalPresenters.exclude_presentation?(opts, type)
             }
           when :editable
             all_exposed.select{|k,v| v[:editable] == true || v[:editable].nil? }

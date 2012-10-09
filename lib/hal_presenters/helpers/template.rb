@@ -2,8 +2,8 @@ module HalPresenters
   module Helpers
     module Template
       def self.included(klass)
-        klass.include(InstanceMethods)
-        klass.class_eval do
+        klass.instance_eval do
+          include(InstanceMethods)
           presentation :template
         end
       end

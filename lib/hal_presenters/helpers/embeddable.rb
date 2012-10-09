@@ -3,7 +3,9 @@ module HalPresenters
     module Embeddable
       def self.included(klass)
         klass.extend(ClassMethods)
-        klass.include(InstanceMethods)
+        klass.instance_eval do
+          include(InstanceMethods)
+        end
       end
       module ClassMethods
         def expose_embedded(key, presenter = nil, opts = {})

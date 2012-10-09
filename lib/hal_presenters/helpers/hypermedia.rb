@@ -3,14 +3,16 @@ module HalPresenters
     module Hypermedia
       def self.included(klass)
         klass.extend(ClassMethods)
-        klass.include(InstanceMethods)
-        klass.include HalPresenters::Helpers::Present
-        klass.include HalPresenters::Helpers::Rels
-        klass.include HalPresenters::Helpers::Exposable
-        klass.include HalPresenters::Helpers::Embeddable
-        klass.include HalPresenters::Helpers::Rootify
+        klass.instance_eval do
+          include(InstanceMethods)
+          include HalPresenters::Helpers::Present
+          include HalPresenters::Helpers::Rels
+          include HalPresenters::Helpers::Exposable
+          include HalPresenters::Helpers::Embeddable
+          include HalPresenters::Helpers::Rootify
 
-        klass.include HalPresenters::Helpers::Template
+          include HalPresenters::Helpers::Template
+        end
       end
       module InstanceMethods
         def initialize(item, opts = {})
