@@ -12,6 +12,7 @@ module HalPresenters
         # zero, one or two arguments
         def extract_options_with_defaults(defaults, *args)
           opts = args.pop
+          defaults[:description] = opts if opts.is_a?(String)
           opts = {} unless opts.is_a?(Hash)
           defaults[:description] = args.first if args.first.is_a?(String)
           opts = defaults.merge(opts)

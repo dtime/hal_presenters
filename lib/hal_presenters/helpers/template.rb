@@ -14,6 +14,23 @@ module HalPresenters
           obj['_template'] = self.call(:template)
           obj
         end
+        def to_create_template(*args)
+          @model ||= Hashie::Mash.new
+          # Any key exposed but not explicitally set editable false is editable
+          if @model.respond_to?(:to_template)
+            template = @model.to_create_template
+          else
+            editable = self.class.filtered_exposed_keys(:template, :editable)
+            template = editable.each_with_object({}) do |(k,v), acc|
+              default = (@model.respond_to?(k) ? @model.send(k) : '')
+              info = v.dup.delete_if{|k,_| [:only,:except,:description,:as].include?(k)}
+              info[:title] ||= (v[:description] || '')
+              info[:type] ||= 'string'
+              acc[k.to_s] = info.merge({"default" => default})
+            end
+          end
+          {properties: template}
+        end
         def to_template(*args)
           raise 'No @model defined' unless @model
           # Any key exposed but not explicitally set editable false is editable
@@ -21,9 +38,8 @@ module HalPresenters
             template = @model.to_template
           else
             editable = self.class.filtered_exposed_keys(:template, :editable)
-            template = editable.inject({}) do |acc, (k,v)|
+            template = editable.each_with_object({}) do |(k,v), acc|
               acc[k.to_s] = {"value" => (@model.respond_to?(k) ? @model.send(k) : '')}
-              acc
             end
           end
           template

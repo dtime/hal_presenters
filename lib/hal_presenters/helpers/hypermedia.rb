@@ -12,6 +12,7 @@ module HalPresenters
           include HalPresenters::Helpers::Rootify
 
           include HalPresenters::Helpers::Template
+          include HalPresenters::Helpers::Controllable
         end
       end
       module InstanceMethods
